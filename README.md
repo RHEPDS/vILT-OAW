@@ -35,6 +35,8 @@ Upon attending this workshop, participants will be able to:
 + Pass the PTP DO280 Assessment and, optionally, the EX280 certification through self-learning.
 
 ## Agenda
+### to have a agenda in your timezone pleas use this link:
+### https://rhepds.github.io/vILT-OAW/
 
 ### Day 1 (270 min total, plus Hands-On Lab)
 
