@@ -35,7 +35,7 @@ Upon attending this workshop, participants will be able to:
 + Pass the PTP DO280 Assessment and, optionally, the EX280 certification through self-learning.
 
 ## Agenda
-### to have a agenda in your timezone pleas use this link:
+### to have an agenda in your timezone, please use this link:
 ### https://rhepds.github.io/vILT-OAW/
 
 ### Day 1 (270 min total, plus Hands-On Lab)
@@ -46,6 +46,9 @@ Upon attending this workshop, participants will be able to:
 + Persistent Storage Options (45 min)
 + Networking Configuration and options (45 min)
 + User Management - Role-based access control (RBAC) (30 min)
+
++ Please find and enroll in the self-learning and Hands-On environment with this link
++ https://training-lms.redhat.com/sso/saml/auth/rhopen?RelayState=deeplinkoffering%3D83983649 
 
 ### Day 2 (270 min total, plus Hands-On Lab)
 
