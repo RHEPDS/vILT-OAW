@@ -2,7 +2,7 @@
 
 This document provides an overview of the OpenShift Architecture Technical Workshop vILT, a three-half-day training session.Description1
 
-This workshop explores the benefits, architecture, installation, and operational management of Red Hat's OpenShift Container Platform. Attendees will learn how to effectively present, design, and architect an on-premises OpenShift installation and deploy it across various public clouds. The primary focus is on OpenShift's infrastructure, providing only a brief overview of development topics. It is suitable for beginners and those who have previously attended who wish to learn about its extended features.Topics Covered1
+This workshop explores the benefits, architecture, installation, and operational management of Red Hat's OpenShift Container Platform. Attendees will learn how to effectively present, design, and architect an on-premises OpenShift installation and deploy it across various public clouds. The primary focus is on OpenShift's infrastructure, providing only a brief overview of development topics. It is suitable for beginners and those who have previously attended who wish to learn about its extended features. Topics Covered
 
 ### This workshop covers the following core topics:
 + Architecture
@@ -21,9 +21,9 @@ Attendees should meet the following prerequisites:
 Basic understanding of Linux, containers (Docker / OCI), and networking.
 A notebook with a browser.
 Completion of the following online training modules is recommended (available in OPEN):
-Red Hat Foundations1
-+ How to Sell Red Hat OpenShift for Infrastructure1
-+ How to Sell Red Hat OpenShift for Developers1
+Red Hat Foundations
++ How to Sell Red Hat OpenShift for Infrastructure
++ How to Sell Red Hat OpenShift for Developers
 
 ### Expected Results
 
