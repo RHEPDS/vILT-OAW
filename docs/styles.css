@@ -585,6 +585,36 @@ main {
   color: var(--destructive);
 }
 
+.presenter-share-hint {
+  margin-top: 0.5rem;
+  max-width: 44rem;
+}
+
+.presenter-link-status {
+  margin-top: 0.35rem;
+  max-width: 44rem;
+}
+
+.attendee-banner {
+  margin: 0 0 1rem;
+  padding: 0.65rem 1rem;
+  font-size: 15px;
+  line-height: 1.35;
+  border-radius: var(--radius-md);
+  background: var(--fill-quaternary);
+  color: var(--label-primary);
+}
+
+.attendee-banner--error {
+  background: rgba(255, 59, 48, 0.12);
+  color: var(--destructive);
+}
+
+.attendee-banner--success {
+  background: rgba(52, 199, 89, 0.14);
+  color: var(--label-primary);
+}
+
 /* ——— Tables (presenter preview) ——— */
 .preview-table {
   width: 100%;

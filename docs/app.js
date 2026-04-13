@@ -32,6 +32,170 @@ function saveState(state) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
+/** Share link payload version (embedded in JSON as `_v`). */
+const SHARE_PAYLOAD_V = 1;
+const SHARE_MAGIC_DEFLATE = "z1.";
+const SHARE_MAGIC_RAW = "u1.";
+/** Soft limit for copied URL length (chat apps may truncate much earlier). */
+const MAX_SHARE_URL_CHARS = 250_000;
+
+function parseHashRoute() {
+  const full = (window.location.hash || "").replace(/^#\/?/, "").trim() || "attendee";
+  const qIdx = full.indexOf("?");
+  const pathPart = qIdx >= 0 ? full.slice(0, qIdx) : full;
+  const queryString = qIdx >= 0 ? full.slice(qIdx + 1) : "";
+  const segments = pathPart.split("/").filter(Boolean);
+  let page = segments[0] || "attendee";
+  if (page === "home" || (page !== "presenter" && page !== "attendee")) page = "attendee";
+  const params = new URLSearchParams(queryString);
+  return { page, params };
+}
+
+function uint8ToBase64url(bytes) {
+  const chunkSize = 0x8000;
+  const parts = [];
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    let sub = "";
+    const end = Math.min(i + chunkSize, bytes.length);
+    for (let j = i; j < end; j++) sub += String.fromCharCode(bytes[j]);
+    parts.push(sub);
+  }
+  return btoa(parts.join("")).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+function base64urlToUint8(s) {
+  const pad = s.length % 4 === 0 ? "" : "=".repeat(4 - (s.length % 4));
+  const b64 = s.replace(/-/g, "+").replace(/_/g, "/") + pad;
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+
+function buildSharePayload(state) {
+  if (!state?.sessions?.length) return null;
+  return {
+    _v: SHARE_PAYLOAD_V,
+    sessions: state.sessions,
+    presenterTimeZone: state.presenterTimeZone,
+    presenterStartLabel: state.presenterStartLabel,
+    presenterDay2Time: state.presenterDay2Time,
+    presenterDay3Time: state.presenterDay3Time,
+    skipDays: state.skipDays,
+  };
+}
+
+function assertValidSharePayload(obj) {
+  if (!obj || obj._v !== SHARE_PAYLOAD_V || !Array.isArray(obj.sessions) || !obj.sessions.length) {
+    throw new Error("Invalid or outdated share link.");
+  }
+  for (const s of obj.sessions) {
+    if (!s || typeof s.title !== "string" || !s.startISO || !s.endISO) {
+      throw new Error("Invalid session data in share link.");
+    }
+  }
+}
+
+function savedStateFromSharePayload(payload) {
+  return {
+    sessions: payload.sessions,
+    presenterTimeZone: payload.presenterTimeZone || "UTC",
+    presenterStartLabel: payload.presenterStartLabel || "",
+    presenterDay2Time: payload.presenterDay2Time || "09:00",
+    presenterDay3Time: payload.presenterDay3Time || "09:00",
+    skipDays: Array.isArray(payload.skipDays) && payload.skipDays.length === 3
+      ? payload.skipDays
+      : [false, false, false],
+    items: [],
+    itemsByDay: [[], [], []],
+  };
+}
+
+async function encodeSharePayload(payload) {
+  const json = JSON.stringify(payload);
+  const bytes = new TextEncoder().encode(json);
+  if (typeof CompressionStream !== "undefined") {
+    const stream = new Blob([bytes]).stream().pipeThrough(new CompressionStream("deflate"));
+    const deflated = new Uint8Array(await new Response(stream).arrayBuffer());
+    return SHARE_MAGIC_DEFLATE + uint8ToBase64url(deflated);
+  }
+  if (bytes.length > 384_000) {
+    throw new Error("Agenda is too large to share without compression (try a shorter schedule).");
+  }
+  return SHARE_MAGIC_RAW + uint8ToBase64url(bytes);
+}
+
+async function decodeSharePayload(encoded) {
+  const s = String(encoded).trim();
+  if (s.startsWith(SHARE_MAGIC_RAW)) {
+    const raw = base64urlToUint8(s.slice(SHARE_MAGIC_RAW.length));
+    return JSON.parse(new TextDecoder().decode(raw));
+  }
+  if (s.startsWith(SHARE_MAGIC_DEFLATE)) {
+    if (typeof DecompressionStream === "undefined") {
+      throw new Error("This browser cannot open compressed share links.");
+    }
+    const deflated = base64urlToUint8(s.slice(SHARE_MAGIC_DEFLATE.length));
+    const stream = new Blob([deflated]).stream().pipeThrough(new DecompressionStream("deflate"));
+    const out = await new Response(stream).arrayBuffer();
+    return JSON.parse(new TextDecoder().decode(out));
+  }
+  throw new Error("Unrecognized share link.");
+}
+
+function buildAttendeeShareUrl(encoded) {
+  const u = new URL(window.location.href);
+  u.hash = `#/attendee?d=${encodeURIComponent(encoded)}`;
+  return u.toString();
+}
+
+function replaceHashAttendeeOnly() {
+  const u = new URL(window.location.href);
+  u.hash = "#/attendee";
+  history.replaceState(null, "", u.toString());
+}
+
+/**
+ * If the hash contains `?d=`, import agenda and shorten the URL.
+ * @returns {Promise<{ kind: "ok" | "error"; text: string } | null>}
+ */
+async function maybeApplySharedAgendaFromUrl(params) {
+  const d = params.get("d");
+  if (!d?.trim()) return null;
+  try {
+    const payload = await decodeSharePayload(d);
+    assertValidSharePayload(payload);
+    saveState(savedStateFromSharePayload(payload));
+    replaceHashAttendeeOnly();
+    return { kind: "ok", text: "Agenda loaded from a shared link." };
+  } catch (err) {
+    replaceHashAttendeeOnly();
+    return { kind: "error", text: err.message || "Could not load shared agenda." };
+  }
+}
+
+async function copyTextToClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand("copy");
+      ta.remove();
+      return ok;
+    } catch {
+      return false;
+    }
+  }
+}
+
 function parseExcelFile(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -281,6 +445,15 @@ function renderPresenterPreview(items, sessions, presenterTz) {
     host.innerHTML = "";
     const exportBtn = document.getElementById("btn-export-json");
     if (exportBtn) exportBtn.hidden = true;
+    const copyBtn = document.getElementById("btn-copy-attendee-link");
+    if (copyBtn) copyBtn.hidden = true;
+    const shareHint = document.getElementById("presenter-share-hint");
+    if (shareHint) shareHint.hidden = true;
+    const linkStatus = document.getElementById("presenter-link-status");
+    if (linkStatus) {
+      linkStatus.hidden = true;
+      linkStatus.textContent = "";
+    }
     return;
   }
   const rows = sessions
@@ -301,6 +474,10 @@ function renderPresenterPreview(items, sessions, presenterTz) {
     </div>`;
   const exportBtn = document.getElementById("btn-export-json");
   if (exportBtn) exportBtn.hidden = false;
+  const copyBtn = document.getElementById("btn-copy-attendee-link");
+  if (copyBtn) copyBtn.hidden = false;
+  const shareHint = document.getElementById("presenter-share-hint");
+  if (shareHint) shareHint.hidden = false;
 }
 
 function escapeHtml(str) {
@@ -474,7 +651,7 @@ function renderAttendeeAgenda(attendeeTz) {
   if (!host) return;
   if (!state || !state.sessions || !state.sessions.length) {
     host.innerHTML =
-      '<p class="empty-state">No agenda yet. The presenter must publish a schedule on this browser / device (max 3 calendar days).</p>';
+      '<p class="empty-state">No agenda yet. Open a <strong>link from the presenter</strong>, use <strong>Load agenda.json</strong>, or ask the presenter to publish the schedule on this device (max 3 calendar days).</p>';
     return;
   }
 
@@ -640,6 +817,44 @@ function wirePresenterOnce() {
     URL.revokeObjectURL(a.href);
   });
 
+  document.getElementById("btn-copy-attendee-link")?.addEventListener("click", async () => {
+    const st = loadState();
+    const payload = buildSharePayload(st);
+    if (!payload) return;
+    const statusEl = document.getElementById("presenter-link-status");
+    if (statusEl) {
+      statusEl.hidden = true;
+      statusEl.textContent = "";
+    }
+    const btn = document.getElementById("btn-copy-attendee-link");
+    const label = btn?.textContent;
+    try {
+      const encoded = await encodeSharePayload(payload);
+      if (encoded.length > MAX_SHARE_URL_CHARS) {
+        throw new Error(
+          "This agenda is too large for a share link. Use “Download agenda.json” and send that file instead."
+        );
+      }
+      const url = buildAttendeeShareUrl(encoded);
+      const ok = await copyTextToClipboard(url);
+      if (!ok) throw new Error("Could not copy to the clipboard.");
+      if (statusEl) {
+        statusEl.hidden = true;
+        statusEl.textContent = "";
+      }
+      if (btn) btn.textContent = "Copied!";
+      setTimeout(() => {
+        if (btn && label) btn.textContent = label;
+      }, 2000);
+    } catch (e) {
+      if (statusEl) {
+        statusEl.textContent = e.message || String(e);
+        statusEl.hidden = false;
+      }
+      if (btn && label) btn.textContent = label;
+    }
+  });
+
   document.getElementById("btn-presenter-reopen")?.addEventListener("click", () => {
     const st = loadState();
     if (st?.presenterStartLabel) {
@@ -685,10 +900,23 @@ function initPresenter() {
     }
     const exportBtn = document.getElementById("btn-export-json");
     if (exportBtn) exportBtn.hidden = false;
+    const copyBtn = document.getElementById("btn-copy-attendee-link");
+    if (copyBtn) copyBtn.hidden = false;
+    const shareHint = document.getElementById("presenter-share-hint");
+    if (shareHint) shareHint.hidden = false;
     hideModal("modal-presenter");
   } else {
     const exportBtn = document.getElementById("btn-export-json");
     if (exportBtn) exportBtn.hidden = true;
+    const copyBtn = document.getElementById("btn-copy-attendee-link");
+    if (copyBtn) copyBtn.hidden = true;
+    const shareHint = document.getElementById("presenter-share-hint");
+    if (shareHint) shareHint.hidden = true;
+    const linkStatus = document.getElementById("presenter-link-status");
+    if (linkStatus) {
+      linkStatus.hidden = true;
+      linkStatus.textContent = "";
+    }
     showModal("modal-presenter");
   }
 }
@@ -729,10 +957,67 @@ function wireAttendeeOnce() {
   document.getElementById("btn-attendee-change-tz")?.addEventListener("click", () => {
     showModal("modal-attendee");
   });
+
+  const importBtn = document.getElementById("btn-attendee-import-json");
+  const importInput = document.getElementById("attendee-import-json-input");
+  importBtn?.addEventListener("click", () => importInput?.click());
+  importInput?.addEventListener("change", () => {
+    const file = importInput.files?.[0];
+    importInput.value = "";
+    if (!file) return;
+    const showBanner = (kind, text) => {
+      const banner = document.getElementById("attendee-banner");
+      if (!banner) return;
+      banner.textContent = text;
+      banner.hidden = false;
+      banner.className =
+        "attendee-banner" + (kind === "error" ? " attendee-banner--error" : " attendee-banner--success");
+    };
+    file
+      .text()
+      .then((text) => {
+        const obj = JSON.parse(text);
+        if (!obj || !Array.isArray(obj.sessions) || !obj.sessions.length) {
+          throw new Error("Invalid file: no sessions found.");
+        }
+        saveState(obj);
+        fillTimeZoneSelect(document.getElementById("attendee-tz"), loadState()?.presenterTimeZone);
+        const savedTz = sessionStorage.getItem("agendaApp_attendeeTz");
+        const tzSelectEl = document.getElementById("attendee-tz");
+        if (savedTz && tzSelectEl) {
+          tzSelectEl.value = savedTz;
+          renderAttendeeAgenda(savedTz);
+          hideModal("modal-attendee");
+        } else {
+          renderTimezoneMap(null);
+          showModal("modal-attendee");
+        }
+        showBanner("ok", "Agenda loaded from file.");
+      })
+      .catch((e) => {
+        showBanner("error", e.message || "Could not read agenda file.");
+      });
+  });
 }
 
-function initAttendee() {
+function setAttendeeRouteBanner(notice) {
+  const banner = document.getElementById("attendee-banner");
+  if (!banner) return;
+  if (!notice) {
+    banner.hidden = true;
+    banner.textContent = "";
+    banner.className = "attendee-banner";
+    return;
+  }
+  banner.textContent = notice.text;
+  banner.hidden = false;
+  banner.className =
+    "attendee-banner" + (notice.kind === "error" ? " attendee-banner--error" : " attendee-banner--success");
+}
+
+function initAttendee(routeNotice) {
   wireAttendeeOnce();
+  setAttendeeRouteBanner(routeNotice ?? null);
   const tzSelect = document.getElementById("attendee-tz");
   const savedTz = sessionStorage.getItem("agendaApp_attendeeTz");
   if (savedTz && tzSelect) {
@@ -745,10 +1030,8 @@ function initAttendee() {
   }
 }
 
-function route() {
-  const raw = (window.location.hash || "").replace(/^#\/?/, "") || "attendee";
-  let page = raw.split("/")[0];
-  if (page === "home" || (page !== "presenter" && page !== "attendee")) page = "attendee";
+async function route() {
+  const { page, params } = parseHashRoute();
   document.querySelectorAll("[data-page]").forEach((el) => {
     el.hidden = el.getAttribute("data-page") !== page;
   });
@@ -756,13 +1039,16 @@ function route() {
     renderTimezoneMap(null);
   }
   if (page === "presenter") initPresenterRoute();
-  else if (page === "attendee") initAttendee();
+  else if (page === "attendee") {
+    const notice = await maybeApplySharedAgendaFromUrl(params);
+    initAttendee(notice);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  window.addEventListener("hashchange", route);
+  window.addEventListener("hashchange", () => void route());
   if (!window.location.hash) {
     window.location.hash = "#/attendee";
   }
-  route();
+  void route();
 });

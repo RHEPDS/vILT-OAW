@@ -2,9 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- GitHub Pages project sites live under /repo/; <base> fixes relative assets when pathname is not exactly "/". -->
+    <script>
+      (function () {
+        if (!/^https?:$/i.test(window.location.protocol)) return;
+        var path = window.location.pathname.replace(/\/(?:index\.html)?$/i, "");
+        if (!path || path === "/") return;
+        if (!path.endsWith("/")) path += "/";
+        var b = document.createElement("base");
+        b.href = path;
+        document.head.insertBefore(b, document.head.firstChild);
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f5f5f7" />
     <title>OpenShift Architecture Workshop</title>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
   </head>
@@ -91,10 +105,17 @@
           <button type="button" class="btn btn-secondary" id="btn-presenter-reopen">
             Edit agenda / upload file
           </button>
+          <button type="button" class="btn btn-ghost" id="btn-copy-attendee-link" hidden>
+            Copy link for attendees
+          </button>
           <button type="button" class="btn btn-ghost" id="btn-export-json" hidden>
             Download agenda.json
           </button>
         </div>
+        <p id="presenter-share-hint" class="hint presenter-share-hint" hidden>
+          Send the link or JSON file to attendees so they can open the same agenda on their devices.
+        </p>
+        <p id="presenter-link-status" class="error-msg presenter-link-status" hidden role="alert"></p>
         <div id="presenter-preview"></div>
 
         <div
@@ -223,9 +244,18 @@
           />
           <span class="view-brand-label">Attendee</span>
         </div>
+        <p id="attendee-banner" class="attendee-banner" hidden role="status"></p>
         <div class="page-toolbar">
           <p>Times shown in <strong>your</strong> timezone.</p>
           <button type="button" class="btn btn-secondary" id="btn-attendee-change-tz">Change timezone</button>
+          <button type="button" class="btn btn-ghost" id="btn-attendee-import-json">Load agenda.json</button>
+          <input
+            type="file"
+            id="attendee-import-json-input"
+            accept=".json,application/json"
+            hidden
+            aria-hidden="true"
+          />
         </div>
         <aside id="attendee-tz-map-root" class="tz-map-panel" hidden aria-live="polite"></aside>
         <div id="attendee-agenda"></div>
