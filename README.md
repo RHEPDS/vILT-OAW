@@ -60,6 +60,11 @@ https://rhepds.github.io/vILT-VMA/#/attendee?d=z1.eJytll1v2jAUhv_Kka86KawOH13JHS
 + OpenShift Security (45 min)
 + Managing Application on top of OpenShift (Cloud Native, Pipelines) (60 min)
 
+The labs are identical, 20 Seats each - Password = OpenShift
+
+LAB A https://catalog.demo.redhat.com/workshop/j4rqxr
+LAB B https://catalog.demo.redhat.com/workshop/8p29vs
+
 ### Day 3 (Optional) (240 min total)
 
 + Introduction Day 3 (15 min)
