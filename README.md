@@ -1,4 +1,4 @@
-## OpenShift Architecture Technical Workshop vILT +
+## OpenShift Architecture Technical Workshop vILT
 
 This document provides an overview of the OpenShift Architecture Technical Workshop vILT, a three-half-day training session.Description1
 
