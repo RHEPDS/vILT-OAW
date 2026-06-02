@@ -62,9 +62,9 @@ https://rhepds.github.io/vILT-VMA/#/attendee?d=z1.eJytll9P2zAUxb-K5ScmpcNJgNG8Fc
 
 The labs are identical, 20 Seats each - Password = OpenShift
 
-LAB A https://catalog.demo.redhat.com/workshop/qrtnay
+LAB A https://catalog.demo.redhat.com/workshop/9gr4de
 
-LAB B https://catalog.demo.redhat.com/workshop/h9u827
+LAB B https://catalog.demo.redhat.com/workshop/2dqauv
 
 ### Day 3 (Optional) (240 min total)
 
