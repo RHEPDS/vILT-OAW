@@ -60,9 +60,10 @@ https://rhepds.github.io/vILT-VMA/#/attendee?d=z1.eJytll1P2zAUhv-K5atNSoeT8NXcFc
 + Managing Application on top of OpenShift (Cloud Native, Pipelines) (60 min)
 
 
-https://catalog.demo.redhat.com/workshop/495jv8
 
-Password = OpenShift
+https://catalog.demo.redhat.com/workshop/92c6gu
+
+Password = openshift
 
 
 ### Day 3 (Optional) (240 min total)
