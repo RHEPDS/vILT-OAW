@@ -78,3 +78,9 @@ Password = openshift
 + Advanced Container Security (ACS)1
 + Quay Enterprise Registry1
 + Next Steps to master OpenShift Installations (30 min)
+
+
+OCP Virt Lab -> 
+https://catalog.demo.redhat.com/workshop/38xd8q
+
+Password OpenShift
