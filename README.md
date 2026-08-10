@@ -37,8 +37,7 @@ Upon attending this workshop, participants will be able to:
 ## Agenda
 ### to have an agenda in your timezone, please use this link:
 
-https://rhepds.github.io/vILT-VMA/#/attendee?d=z1.eJytll9P2zAUxb-K5ScmpcNJKKN5K5RtiD9FLQiJCSGT3HZWXTuynbIK8d0npxtNQ25ppvWhL7F8fvf6HF-_0McFTcKAWrBWaGVp8uOFOuEk0ITegUz1HAhXGTlTzmga0Kww3AmtLoUqHFiahN2AWseNOxsPaUIjFh12WLcThjfsS8JYwthnxtg9DSiorGlN2H1b8xqsxc-LJzAKHNhSf5iDGv8UE0eGCzALAc9NMIdsC0xFCIE5wmDOlHVcylKspe7RDro9TPd4dNo_b9n13k6CMWsUvAZjhXWgHBk7bfgUyDB3pTMaKA62UcQfnX3IsLKvwD1rMxNqSk60mojpH-HSCfpfeDa1EJ6w6tcqz60FQy654lOY-9Y8kpGW0HniFjLC0xSsJan2CZFkb3TcP_nURBejJtlURumQMyujmRVp2aEBX5KojWOiHXIabcmpF3TP2gd0pWjJPhmnXAo1DchtnnEHAelnmfAfuSQT4K4w0HiAWI7qAAgkmt8VnDbkq-Fz8N4qrfT99OKyjY_qEghGD_NR6zjXN0MFsfuDp7MiL2sdCMutA0NGkOoFmGXLwj-8ViIfMqTw9e09hrQwwrVU39wZVT9o7kKZXH-Z9PNcinR1lWhFnM6JnlRGy9434Ya5DciJ1EVGrrgTCwjItchBCgW2Mda4ZzeJEOoQo34X65j8_YVdMheNgwgzUrxDyuMtKa_k906bmdQ8s76F78fyCjBiKGGE9KsujyD-v1lZ3wwVRO7dde39LOsgI6mHV_vhiIy3jKQr-OVHNOSWOE3mq2iviaoPlkYubBjVNVGualMeApobsKAcmBsxh3utPONpYXQO-8dgZOmFtzVjL3zBn0C-ezUwVl044MvIb0gT2vQtrn2zM5EP-NK_YidcWggq_w-vvwGayyGX
-
+https://rhepds.github.io/vILT-VMA/#/attendee?d=z1.eJytll1P2zAUhv-K5atNSoeT8NXcFco2xEdRC0JiQsgkp51V145sp6xC_PfJ6aDp6kPJtF70Jkd-Hx-_r4-f6cOcZnFELVgrtLI0-_FMnXASaEZvQeZ6BoSrgpwqZzSNaFEZ7oRWF0JVDizN4r2IWseNOx0NaEYTlux32H4n6V6zg4yxjLEvjLE7GlFQRagm3nureYlW4mfVIxgFDmytPyhBjX6KsSODOZi5gKcQzD57B6YhhMAcYjCnyjouZS3WUvfwA7pdTPdoeNI7a9n17ocEUxYUvAJjhXWgHBk5bfgEyKB0tTMCFLvvUaTbzj5m2LYvwT1pMxVqQo61GovJH-HaCfpfeNa1EJ646dcmz40FQy644hOY-dY8kKGW0HnkFgrC8xysJbn2CZHk0_Cod_w5RJeiJllXRumQM6ujWVR53aE-X5CkhWNStj2nyxrkrLyge9I-oEtFS3bIKOdSqElEbsqCO4hIryiE_8glGQN3lYHgASI52gBAINH8LuG0IV8Nn4H3Vm2l7yfnFy18tCGBYHQxH7WN88ZiqCB2f_B8WpX1XvvCcuvAkCHkeg5m0XLj266VlPmQIRtf3d4jyCsjXEv19ZVR9d1wF-rk-sukV5ZS5MurRCvidEn0uDFaPn0TblDaiBxLXRXkkjsxh4hciRKkUGCDscY9u06EUMcY9UasU_L6i_fITAQHUdBIBx0Wb0v5aw1ipEZ-b7WZSs0L61u4OZaXgAlDCZNQvwLyCOJ_mpWBxVBB5N5d7b1XFB1kJHXx3b4_IusafCRdwi8_oqG0xGkyW0Z7RdR8sAS5gsMooIlyNZtyH9HSgAXlwFyLGdxp5RlPKqNL2DkCI2svvNWMvPA5fwS58WpgrFnY54vEL0gzGvqW_vXNTkXZ5wv_ih1zaSFq_N-__Aa9IiIx
 ### Day 1 (270 min total, plus Hands-On Lab)
 
 + Welcome and Intro (15 min)
@@ -60,11 +59,12 @@ https://rhepds.github.io/vILT-VMA/#/attendee?d=z1.eJytll9P2zAUxb-K5ScmpcNJKKN5K5
 + OpenShift Security (45 min)
 + Managing Application on top of OpenShift (Cloud Native, Pipelines) (60 min)
 
-The labs are identical, 20 Seats each - Password = OpenShift
 
-LAB A https://catalog.demo.redhat.com/workshop/qrtnay
 
-LAB B https://catalog.demo.redhat.com/workshop/h9u827
+https://catalog.demo.redhat.com/workshop/92c6gu
+
+Password = openshift
+
 
 ### Day 3 (Optional) (240 min total)
 
@@ -78,3 +78,9 @@ LAB B https://catalog.demo.redhat.com/workshop/h9u827
 + Advanced Container Security (ACS)1
 + Quay Enterprise Registry1
 + Next Steps to master OpenShift Installations (30 min)
+
+
+OCP Virt Lab -> 
+https://catalog.demo.redhat.com/workshop/38xd8q
+
+Password OpenShift
