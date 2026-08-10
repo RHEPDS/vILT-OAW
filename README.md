@@ -49,7 +49,7 @@ https://rhepds.github.io/vILT-VMA/#/attendee?d=z1.eJytll9P2zAUxb-K5ScmpcNJgNG8Fc
 + User Management - Role-based access control (RBAC) (30 min)
 
 + Please find and enroll in the self-learning and Hands-On environment with this link
-+ https://training-lms.redhat.com/sso/saml/auth/rhopen?RelayState=deeplinkoffering%3D83983649 
++ https://catalog.demo.redhat.com/workshop/c3c49k
 
 ### Day 2 (270 min total, plus Hands-On Lab)
 
