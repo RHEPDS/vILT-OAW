@@ -35,9 +35,10 @@ Upon attending this workshop, participants will be able to:
 + Pass the PTP DO280 Assessment and, optionally, the EX280 certification through self-learning.
 
 ## Agenda
-### to have an agenda in your timezone, please use this link:
+### To have an agenda in your timezone, please use this link:
 
-https://rhepds.github.io/vILT-VMA/#/attendee?d=z1.eJytll1P2zAUhv-K5atNSoeT8NXcFco2xEdRC0JiQsgkp51V145sp6xC_PfJ6aDp6kPJtF70Jkd-Hx-_r4-f6cOcZnFELVgrtLI0-_FMnXASaEZvQeZ6BoSrgpwqZzSNaFEZ7oRWF0JVDizN4r2IWseNOx0NaEYTlux32H4n6V6zg4yxjLEvjLE7GlFQRagm3nureYlW4mfVIxgFDmytPyhBjX6KsSODOZi5gKcQzD57B6YhhMAcYjCnyjouZS3WUvfwA7pdTPdoeNI7a9n17ocEUxYUvAJjhXWgHBk5bfgEyKB0tTMCFLvvUaTbzj5m2LYvwT1pMxVqQo61GovJH-HaCfpfeNa1EJ646dcmz40FQy644hOY-dY8kKGW0HnkFgrC8xysJbn2CZHk0_Cod_w5RJeiJllXRumQM6ujWVR53aE-X5CkhWNStj2nyxrkrLyge9I-oEtFS3bIKOdSqElEbsqCO4hIryiE_8glGQN3lYHgASI52gBAINH8LuG0IV8Nn4H3Vm2l7yfnFy18tCGBYHQxH7WN88ZiqCB2f_B8WpX1XvvCcuvAkCHkeg5m0XLj266VlPmQIRtf3d4jyCsjXEv19ZVR9d1wF-rk-sukV5ZS5MurRCvidEn0uDFaPn0TblDaiBxLXRXkkjsxh4hciRKkUGCDscY9u06EUMcY9UasU_L6i_fITAQHUdBIBx0Wb0v5aw1ipEZ-b7WZSs0L61u4OZaXgAlDCZNQvwLyCOJ_mpWBxVBB5N5d7b1XFB1kJHXx3b4_IusafCRdwi8_oqG0xGkyW0Z7RdR8sAS5gsMooIlyNZtyH9HSgAXlwFyLGdxp5RlPKqNL2DkCI2svvNWMvPA5fwS58WpgrFnY54vEL0gzGvqW_vXNTkXZ5wv_ih1zaSFq_N-__Aa9IiIx
+https://rhepds.github.io/vILT-VMA/#/attendee?d=z1.eJytll9P2zAUxb-K5ScmpcNJgLV5K5RtiD9FLQiJCSGT3HZWXTuynbIK8d0npxtNQ25LpvWhL7Z8fvfmHF-_0McFTcKAWrBWaGVp8uOFOuEk0ITegUz1HAhXGTlTzmga0Kww3AmtLoUqHFiahIcBtY4bdzYe0oRGLDrqsG4n_HLDuknMEsY-M8buaUBBZU17Dg7f9rwGa_Hz4gmMAge21B_moMY_xcSR4QLMQsBzE8wR2wJTEUJgehjMmbKOS1mKtdTt7dYNGaZ7PDrtn7fr-uZhiGCYMNYoeA3GCutAOTJ22vApkGHuSmc0UBzgFBsKKAVS9hW4Z21mQk3JiVYTMf0jXDpB_yPP7q5EVb9WeW4tGHLJFZ_C3LfmkYy0hM4Tt5ARnqZgLUm1T4gke6Pj_smnJroYNcmmMkIXY9-sjGZWpGWHBnxJojaO6X4gp90tOfWC7ln7gK4ULdkn45RLoaYBuc0z7iAg_SwTfpFLMgHuCgONHxDLUR0AgUTzu4LThnw1fA7eW6WVvp9eXLbxUV2iGSNkmI9ax7l-GCqI3R88nRV5WetAWG4dGDKCVC_ALNsVvvta6fqQIYWvb-8xpIURrq16-IEuREnY3IUyuf4y6ee5FOnqKtGKOJ0TPamMlr1vwg1zG5ATqYuMXHEnFhCQa5GDFApsY6xxz24SIdQxRv0u1jH5-wsPyVw0DiLMSL0PpLy3JeWV_N5pM5OaZ9a38P1YXgFGDCWMkH7V5ZsR_-OsrB-GCKKzcl17P8s6yEjqodXuHpG9LSPpCn75EQ25JU6T-Sraa6Lqg6WRCxtGdU2Ea3MYPQQ0N2BBOTA3Yg73WnnG08LoHPaPwcjSC297xl74gj-BfPd2iVl144AvI38gTWjTWlxbszORD_jSv2InXFoIKv8Pr78Bk8oi5g
+
 ### Day 1 (270 min total, plus Hands-On Lab)
 
 + Welcome and Intro (15 min)
@@ -48,7 +49,7 @@ https://rhepds.github.io/vILT-VMA/#/attendee?d=z1.eJytll1P2zAUhv-K5atNSoeT8NXcFc
 + User Management - Role-based access control (RBAC) (30 min)
 
 + Please find and enroll in the self-learning and Hands-On environment with this link
-+ https://training-lms.redhat.com/sso/saml/auth/rhopen?RelayState=deeplinkoffering%3D83983649 
++ https://training-lms.redhat.com/sso/saml/auth/rhopen?RelayState=deeplinkoffering%3D93133862
 
 ### Day 2 (270 min total, plus Hands-On Lab)
 
@@ -59,12 +60,9 @@ https://rhepds.github.io/vILT-VMA/#/attendee?d=z1.eJytll1P2zAUhv-K5atNSoeT8NXcFc
 + OpenShift Security (45 min)
 + Managing Application on top of OpenShift (Cloud Native, Pipelines) (60 min)
 
+https://catalog.demo.redhat.com/workshop/7d2p3r
 
-
-https://catalog.demo.redhat.com/workshop/92c6gu
-
-Password = openshift
-
+Password = OpenShift
 
 ### Day 3 (Optional) (240 min total)
 
