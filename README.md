@@ -82,3 +82,6 @@ OCP Virt Lab ->
 https://catalog.demo.redhat.com/workshop/38xd8q
 
 Password OpenShift
+
+Feedback link for this workshop:
+https://training-lms.redhat.com/sso/saml/auth/rhopen?RelayState=deeplinkoffering%3D93688314
