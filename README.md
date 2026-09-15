@@ -60,8 +60,7 @@ https://rhepds.github.io/vILT-VMA/#/attendee?d=z1.eJytll9v2jAUxb_KlZ82KawOFCh5o6
 + OpenShift Security (45 min)
 + Managing Application on top of OpenShift (Cloud Native, Pipelines) (60 min)
 
-
-https://catalog.demo.redhat.com/workshop/8b2rjy
+https://catalog.demo.redhat.com/workshop/4w3und
 
 Password = OpenShift
 
