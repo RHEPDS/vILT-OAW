@@ -77,12 +77,5 @@ Password = OpenShift
 + Quay Enterprise Registry1
 + Next Steps to master OpenShift Installations (30 min)
 
-
-OCP Virt Lab -> 
-
-https://catalog.demo.redhat.com/workshop/8b2rjy
-
-Password OpenShift
-
 Feedback link for this workshop:
 https://training-lms.redhat.com/sso/saml/auth/rhopen?RelayState=deeplinkoffering%3D93688314
