@@ -73,8 +73,8 @@ Password = OpenShift
 + Development tools (Developer Hub, GitOps)
 + OpenShift Add-ons (90 min)
 + Advanced Cluster Management (ACM)
-+ Advanced Container Security (ACS)1
-+ Quay Enterprise Registry1
++ Advanced Container Security (ACS)
++ Quay Enterprise Registry
 + Next Steps to master OpenShift Installations (30 min)
 
 Feedback link for this workshop:
