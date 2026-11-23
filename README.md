@@ -50,6 +50,8 @@ https://rhepds.github.io/vILT-VMA/#/attendee?d=z1.eJytll1v2jAUhv_Kka86KaxOgGrkjo
 
 + Please find and enroll in the self-learning and Hands-On environment with this link
 + https://training-lms.redhat.com/sso/saml/auth/rhopen?RelayState=deeplinkoffering%3D93133862
+  If the lInk is not working, go to https://connect.redhat.com/en/training/course-catalog and search for DO180 / 4.22
+  Sorry for the inconvenience :-(
 
 ### Day 2 (270 min total, plus Hands-On Lab)
 
